@@ -1,0 +1,9 @@
+# Docker-compose Commands
+docker build -t python:demo-blue
+docker build -t python:demo-green
+
+docker-compose up -d
+docker-compose start blue
+docker-compose restart green
+docker-compose up blue 
+docker-compose down 

@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  blue:
+    container_name: blue
+    image: python:demo-blue
+    ports: 
+      - "5000:5000"
+  green:
+    container_name: green
+    image: python:demo-green
+    ports: 
+      - "5001:5000"
