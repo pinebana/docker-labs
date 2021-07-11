@@ -1,0 +1,45 @@
+# Docker Network Tutorial
+docker network --help
+docker network ls
+docker container run -d --name gamma nginx:latest
+docker container run -d --name delta nginx:latest
+docker container inspect gamma 
+docker container inspect delta
+docker exec -it gamma bash 
+$ apt-get update && apt-get install iputils-ping # In gamma container 
+$ ping delta                                     # In gamma container 
+$ ping 172.17.0.x                                # In gamma container 
+docker container stop gamma && docker container rm gamma
+docker container stop delta && docker container rm gamma
+
+docker network create demo
+docker container run -d --network=demo --name gamma nginx:latest # Ping to container Name 
+docker container run -d --network=demo --name delta nginx:latest
+docker exec -it gamma bash 
+$ apt-get update && apt-get install iputils-ping # In gamma container 
+$ ping delta                                     # In gamma container 
+docker container stop gamma && docker container rm gamma
+docker container stop delta && docker container rm gamma
+docker network rm demo
+
+# Docker Volume Tutorial
+docker volume --help
+docker volume ls 
+docker volume create demo-volume
+docker volume inspect demo-volume
+docker container run -it -v demo-volume:/demo-volume/ --name alpha python:3.8-slim-buster bash
+cd /demo-volume/
+cat <<EOF > hello.py
+> print("Hello World!")
+> EOF
+python3 hello.py
+docker container run -it -v demo-volume:/demo-volume/ --name beta python:3.8-slim-buster bash
+cd /demo-volume/
+python3 hello.py 
+docker container run -it -v /local-path/:/bind-mounts/ --name gamma python:3.8-slim-buster bash
+cat <<EOF > hello.py
+> print("Hello from Bind-Mounts")
+> EOF
+docker container rm alpha 
+docker container rm beta
+docker container rm gamma

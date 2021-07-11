@@ -1,0 +1,9 @@
+# Using commit commands to making Docker Custom Image
+docker container run -it --name alpha python:3.8-slim-buster
+docker container exec -it alpha bash
+$ cat <<EOF > test.txt                          # In alpha container 
+> Hello world
+> EOF
+docker container commit alpha python:alpha-1.0
+# Using build commands to making Docker Custom Image
+docker build -t python:beta-1.0 .
