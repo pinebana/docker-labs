@@ -1,0 +1,24 @@
+# 1. Checking Installed Docker Version & Testing Docker commands
+docker version  
+docker run hello-world
+docker login
+
+# 2. Docker Image Commands
+docker image --help
+docker image ls
+docker image pull python:3.8-slim-buster
+docker image push pinebana/demo-app:python-1.0
+docker image save -o python-test.tar python:3.8-slim-buster
+docker image load -i python-test.tar
+docker image rm python:3.8-slim-buster
+
+# 3. Docker Cotainer Commands
+docker container --help 
+docker container ls
+docker container create --name alpha python:3.8-slim-buster # Check your container status 
+docker container run -it --name beta python:3.8-slim-buster
+docker container run -d -p 8080:8080 --name gamma nginx:latest
+docker exec -it gamma bash 
+docker container rm alpha
+docker container rm beta
+docker container rm gamma
